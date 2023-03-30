@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <a href="/song">Back To List</a>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+        <script th:inline="javascript">
+            setTimeout(function () {
+                window.location.href = /*[[@{/song}]]*/ '#';
+            }, 3000);
+        </script>
+    </th:block>
+    <form th:action="@{/create}" th:object="${song}" method="post">
+        <table>
+            <tr>
+                <td>Song Name</td>
+                <td><input type="text" th:field="*{song_name}" escapeXml="false" ></td>
+            </tr>
+            <tr>
+                <td>Singer</td>
+                <td><input type="text" th:field="*{singer}" escapeXml="false" ></td>
+            </tr>
+            <tr>
+                <td>Kind Of Music</td>
+                <td><input type="text" th:field="*{kind}" escapeXml="false" ></td>
+            </tr>
+            <tr>
+                <td>Video Link</td>
+                <td><input type="text" th:field="*{url_link}"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Save">
+    </form>
+</div>
+</body>
+</html>

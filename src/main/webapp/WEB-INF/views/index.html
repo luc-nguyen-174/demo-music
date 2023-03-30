@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <a href="/create">Add New Song</a>
+</div>
+<div align="center">
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Song Name</td>
+            <td>Singer</td>
+            <td>Kind Of Music</td>
+            <td>Video</td>
+            <td>Delete</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="song:${songList}">
+            <td th:text="${song.getId()}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${song.getId()})}" th:text="${song.getSong_name()}" escapeXml="false"></a>
+            </td>
+            <td th:text="${song.getSinger()}" escapeXml="false"></td>
+            <td th:text="${song.getKind()}" escapeXml="false"></td>
+            <td>
+                <iframe width="560" height="315" th:src="${song.getUrl_link()}"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            </td>
+            <td>
+                <button id="delete" onclick="return confirm('Are you sure?')">
+                    <a th:href="@{/delete/__${song.id}__}"><i class="fa-solid fa-trash"></i></a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function decodeURI(htmlDecimal) {
+        return decodeURIComponent(htmlDecimal.replace(/&#(\d+);/g, function(match, capture) {
+            return String.fromCharCode(parseInt(capture, 10));
+        }));
+    }
+</script>
+</body>
+</html>
