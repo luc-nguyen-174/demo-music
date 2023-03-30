@@ -24,14 +24,14 @@ public class SongController {
         return modelAndView;
     }
 
-    @GetMapping("/create")
+    @GetMapping(value = "/create")
     public ModelAndView createForm() {
         ModelAndView modelAndView = new ModelAndView("/create");
         modelAndView.addObject("song", new Song1());
         return modelAndView;
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     public ModelAndView saveSong(@ModelAttribute("song") Song1 song) {
         songService.save(song);
         ModelAndView modelAndView = new ModelAndView("/create");
@@ -40,7 +40,7 @@ public class SongController {
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public ModelAndView showEditForm(@PathVariable Long id) {
         Optional<Song1> song = songService.findById(id);
         if (song != null) {
@@ -52,7 +52,7 @@ public class SongController {
         }
     }
 
-    @PostMapping("/edit")
+    @PostMapping(value = "/edit")
     public ModelAndView updateCustomer(@ModelAttribute("song") Song1 song) {
         songService.save(song);
         ModelAndView modelAndView = new ModelAndView("/edit");
@@ -61,7 +61,8 @@ public class SongController {
         return modelAndView;
     }
 
-    @GetMapping("/delete/{id}")
+
+    @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable Long id) {
         songService.remove(id);
         return "redirect:/song";
